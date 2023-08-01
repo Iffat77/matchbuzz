@@ -1,11 +1,12 @@
-import React from 'react';
-import Auth from '../components/Auth';
+import React from "react";
+import Auth from "../components/Auth";
 
-const Home = () => {
+const Home = ({ user }) => {
   return (
     <div>
       <h1>Home</h1>
-      <Auth /> 
+      <p>{`Welcome ${user.displayName}`}</p>
+      <Auth />
     </div>
   );
 };

@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth, provider } from '../config/firebase';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+
+  // Function to check if the user is authenticated
+  const checkUserAuthentication = () => {
+    const user = auth.currentUser;
+    setIsUserAuthenticated(!!user);
+  };
+
+  useEffect(() => {
+    // Add the authentication listener when the component mounts
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsUserAuthenticated(true);
+      } else {
+        setIsUserAuthenticated(false);
+      }
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   const handleSignInWithGoogle = async () => {
     try {
@@ -26,10 +47,14 @@ const Auth = () => {
 
   return (
     <div className=''>
-      {auth.currentUser ? (
-        <button className='border rounded-lg py-2 px-4 text-md font-semibold' onClick={handleLogout}>Logout</button>
+      {isUserAuthenticated ? (
+        <button className='border rounded-lg py-2 px-4 text-md font-semibold' onClick={handleLogout}>
+          Logout
+        </button>
       ) : (
-        <button className='border rounded-lg py-2 px-4 text-md font-semibold' onClick={handleSignInWithGoogle}>Sign in with Google</button>
+        <button className='border rounded-lg py-2 px-4 text-md font-semibold' onClick={handleSignInWithGoogle}>
+          Sign in with Google
+        </button>
       )}
     </div>
   );
