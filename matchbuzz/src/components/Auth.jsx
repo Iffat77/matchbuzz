@@ -46,7 +46,7 @@ const Auth = () => {
   };
 
   return (
-    <div className=''>
+    <div className='text-slate-300'>
       {isUserAuthenticated ? (
         <button className='border rounded-lg py-2 px-4 text-md font-semibold' onClick={handleLogout}>
           Logout
