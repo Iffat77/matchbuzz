@@ -21,6 +21,7 @@ app.get('/dailyscoreboard', async (req, res) => {
   try {
     const response = await axios.request(options);
     console.log(response.data);
+    res.json(response.data);
   } catch (error) {
     console.error(error);
   }
@@ -53,6 +54,7 @@ app.get('/dailyscoreboard', async (req, res) => {
 //   }
 
 // })
+
 
 
 app.listen(PORT, () => console.log('running on port' + PORT))
