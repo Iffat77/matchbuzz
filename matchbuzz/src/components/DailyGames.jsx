@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import gameData from "../assets/gameData.json";
 import teamData from "../assets/teamsData.json";
+import ScoreBoard from "./ScoreBoard";
 
 function getTeamLogo(teamAbv) {
   const team = teamData.body.find((team) => team.teamAbv === teamAbv);
@@ -11,11 +12,29 @@ function getTeamLogo(teamAbv) {
 function DailyGames() {
   const [dailyGameData, setDailyGameData] = useState(null);
   const [teamInfo, setTeamInfo] = useState(null);
+  const [selectedGameId, setSelectedGameId] = useState(null)
 
   useEffect(() => {
     setDailyGameData(gameData.body);
     setTeamInfo(teamData);
   }, []);
+
+  const handleGameClick = (gameID) => {
+    setSelectedGameId(gameID)
+  }
+  //   useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:8000/dailyscoreboard");
+  //       setDailyGameData(response.data.body);
+  //       setTeamInfo(teamData);
+  //     } catch (error) {
+  //       console.error("Error fetching daily game data:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="allGames-container p-2 md:p-4 md:m-2  rounded-lg w-full md:w-1/3">
@@ -25,7 +44,7 @@ function DailyGames() {
             <h1 className="font-bold text-lg">Today's Games</h1>
           </div>
           {Object.values(dailyGameData).map((game) => (
-            <div className="game-container border rounded-xl" key={game.gameID}>
+            <div className="game-container border rounded-xl " onClick={() => handleGameClick(game.gameID)} key={game.gameID}>
               <p className="p-2">{game?.gameStatus}</p>
               <div className="p-4 flex justify-between border-t">
                 <div className="teams  w-1/3">
@@ -59,6 +78,8 @@ function DailyGames() {
       ) : (
         <p>Loading...</p>
       )}
+
+      {selectedGameId && <ScoreBoard gameId={selectedGameId} />}
     </div>
   );
 }

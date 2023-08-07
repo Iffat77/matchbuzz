@@ -14,6 +14,8 @@ dist-ssr
 
 gameData.json
 teamsData.json
+allPlayersData.json
+boxScoreData.json
 
 # Editor directories and files
 .vscode/*
