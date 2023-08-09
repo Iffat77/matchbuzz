@@ -6,7 +6,7 @@ import ScoreBoard from "./ScoreBoard";
 
 function getTeamLogo(teamAbv) {
   const team = teamData.body.find((team) => team.teamAbv === teamAbv);
-  return team ? team.mlbLogo1 : null;
+  return team ? team.nflComLogo1 : null;
 }
 
 function DailyGames() {
@@ -66,10 +66,10 @@ function DailyGames() {
                   </div>
                 </div>
 
-                <div className="teams-runs ">
-                  <p className="font-bold">R</p>
-                  <p className="my-2 font-medium">{game.lineScore?.away?.R}</p>
-                  <p className="my-2 font-medium">{game.lineScore?.home?.R}</p>
+                <div className="teams-runs flex flex-col space-y-4">
+                  {/* <p className="font-bold"></p> */}
+                  <p className="my-2 font-medium">{game?.awayPts}</p>
+                  <p className="my-2 font-medium">{game?.homePts}</p>
                 </div>
               </div>
             </div>
