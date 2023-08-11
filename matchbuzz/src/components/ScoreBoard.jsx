@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import scoreData from "../assets/boxScoreData.json";
 import playersData from "../assets/allPlayersData.json";
 
+
 function getPlayerName(playerID) {
   const player = playersData.body.find(
     (player) => player.playerID === playerID
@@ -25,8 +26,6 @@ function ScoreBoard({ gameId }) {
     const awayPassing = [];
     const mapAwayPassing = Object.values(playerStats).map((player) => {
       if (player.team === boxScore.away && player?.Passing) {
-        console.log("here");
-        // console.log(player?.Hitting?.battingOrder, player.playerID)
         awayPassing.push({
           name: player?.longName,
           completions: player?.Passing?.passCompletions,
@@ -55,18 +54,19 @@ function ScoreBoard({ gameId }) {
   return (
     <div>
       ScoreBoard for {gameId}
+      <p>cta yds avg td int sak qbr</p>
       {playerStats ? (
         <div>
           {getPlayersAway(playerStats).map((player) => (
-            <div>
+            <div className="flex flex-row ">
               <p>{player.name}</p>
-              <p>{`cta: ${player.completions}/${player.attempts}`}</p>
-              <p>{`yds: ${player.passYards}`}</p>
-              <p>{`avg: ${player.passAvg}`}</p>
-              <p>{`td: ${player.td}`}</p>
-              <p>{`int: ${player.int}`}</p>
-              <p>{`sak: ${player.sacks}`}</p>
-              <p>{`qbr: ${player.qbr}`}</p>
+              <p>{` ${player.completions}/${player.attempts}`}</p>
+              <p>{` ${player.passYards}`}</p>
+              <p>{` ${player.passAvg}`}</p>
+              <p>{` ${player.td}`}</p>
+              <p>{` ${player.int}`}</p>
+              <p>{` ${player.sacks}`}</p>
+              <p>{` ${player.qbr}`}</p>
             </div>
           ))}
         </div>
