@@ -15,6 +15,14 @@ function DailyGames() {
   const [teamInfo, setTeamInfo] = useState(null);
   const [selectedGameId, setSelectedGameId] = useState(null);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  const toggleModal = (gameID) => {
+    setSelectedGameId(gameID);
+    setIsModalOpen(!isModalOpen);
+  };
+
   useEffect(() => {
     setDailyGameData(gameData.body);
     setTeamInfo(teamData);
@@ -49,7 +57,6 @@ function DailyGames() {
               key={game.gameId}
               game={game}
               getTeamLogo={getTeamLogo}
-              handleGameClick={handleGameClick}
             />
           ))}
         </div>
@@ -57,7 +64,7 @@ function DailyGames() {
         <p>Loading...</p>
       )}
 
-      {selectedGameId && <ScoreBoard gameId={selectedGameId} />}
+    
     </div>
   );
 }
