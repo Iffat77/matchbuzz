@@ -3,12 +3,15 @@ import scoreData from "../assets/boxScoreData.json";
 import playersData from "../assets/allPlayersData.json";
 import PassingStatTable from "./PassingStatTable";
 import RushingStatTable from "./RushingStatTable";
+import ReceivingStatTable from "./ReveivingStatTable";
+import DefenseStatTable from "./DefenseStatTable";
 import {
   Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Typography,
 } from "@material-tailwind/react";
 
 function getPlayerName(playerID) {
@@ -54,7 +57,7 @@ function ScoreBoard({ gameId, onClose }) {
   }
 
   function getRushingAway(playerStats) {
-    const awayRushing = []
+    const awayRushing = [];
 
     const mapAwayRushing = Object.values(playerStats).map((player) => {
       if (player.team === boxScore.away && player?.Rushing) {
@@ -64,16 +67,60 @@ function ScoreBoard({ gameId, onClose }) {
           rushingYards: player?.Rushing?.rushYds,
           rushingAvg: player?.Rushing?.rushAvg,
           td: player?.Rushing?.rushTD,
-          long: player?.Rushing?.longRush
-        })
+          long: player?.Rushing?.longRush,
+        });
       }
-    })
+    });
     const sortAwayRushing = awayRushing.sort(
-      (a,b) => b?.rushingYards - a?.rushingYards
-    )
-    return sortAwayRushing
+      (a, b) => b?.rushingYards - a?.rushingYards
+    );
+    return sortAwayRushing;
   }
 
+  function getReceivingAway(playerStats) {
+    const awayReceiving = [];
+
+    const mapAwayReceiving = Object.values(playerStats).map((player) => {
+      if (player.team === boxScore.away && player?.Receiving) {
+        awayReceiving.push({
+          name: player?.longName,
+          receptions: player?.Receiving?.receptions,
+          recYds: player?.Receiving?.recYds,
+          recAvg: player?.Receiving?.recAvg,
+          td: player?.Receiving?.recTD,
+          longRec: player?.Receiving?.longRec,
+          targets: player?.Receiving?.targets,
+        });
+      }
+    });
+    const sortAwayReceiving = awayReceiving.sort(
+      (a, b) => b?.recYds - a?.recYds
+    );
+    return sortAwayReceiving;
+  }
+
+  function getDefenseAway(playerStats) {
+    const awayDefense = [];
+    // "TOT", "SOLO", "SACKS", "TFL", "PD", "QB HTS", "TD"
+    const mapAwayDefense = Object.values(playerStats).map((player) => {
+      if (player.team === boxScore.away && player?.Defense) {
+        awayDefense.push({
+          name: player?.longName,
+          totalTackles: player?.Defense?.totalTackles,
+          soloTackles: player?.Defense?.soloTackles,
+          tfl: player?.Defense?.tfl,
+          sacks: player?.Defense?.sacks,
+          passDeflections: player?.Defense?.passDeflections,
+          qbHits: player?.Defense?.qbHits,
+          defTD: player?.Defense?.defTD,
+        });
+      }
+    });
+    const sortAwayDefense = awayDefense.sort(
+      (a, b) => b?.totalTackles - a?.totalTackles
+    );
+    return sortAwayDefense;
+  }
 
   useEffect(() => {
     setBoxScore(scoreData.body);
@@ -85,17 +132,20 @@ function ScoreBoard({ gameId, onClose }) {
     <div>
       {playerStats ? (
         <Dialog
-          open={true} 
+          className=" md:overflow-auto "
+          open={true}
           animate={{
             mount: { scale: 1, y: 0 },
             unmount: { scale: 0.9, y: -100 },
           }}
         >
-          <DialogHeader>  ScoreBoard for {gameId} </DialogHeader>
-          <div>
+          <DialogHeader> ScoreBoard for {gameId} </DialogHeader>
+          <DialogBody divider className="max-h-[30rem] overflow-auto md:max-h-[40rem] md:overflow-auto">
             <PassingStatTable stats={getPassingAway(playerStats)} />
             <RushingStatTable stats={getRushingAway(playerStats)} />
-          </div>
+            <ReceivingStatTable stats={getReceivingAway(playerStats)} />
+            <DefenseStatTable stats={getDefenseAway(playerStats)} />
+          </DialogBody>
           <DialogFooter>
             <Button
               variant="text"

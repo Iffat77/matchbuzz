@@ -1,13 +1,12 @@
 import { Card, Typography } from "@material-tailwind/react";
  
-const TABLE_HEAD = ["", "CTA", "YDS", "AVG", "TD", "INT", "SAK", "QBR"];
+const TABLE_HEAD = ["", "REC", "YDS", "AVG", "TD", "LONG", "TGTS"];
  
 
-function PassingStatTable({ stats }) {
+function ReveivingStatTable({ stats }) {
   return (
     <Card className="h-full w-full overflow-scroll">
-      {console.log(stats)}
-      <p>Away Passing</p>
+      <p>Away Receiving</p>
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
@@ -29,10 +28,10 @@ function PassingStatTable({ stats }) {
         </thead>
         <tbody>
           
-          {stats && stats.map(({ name, completions, attempts, int, passAvg, passYards, qbr, sacks, td}, index) => {
+          {stats && stats.map(({ name, receptions, recYds, recAvg, td, longRec, targets}, index) => {
             const isLast = index === stats.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-            console.log(qbr)
+ 
             return (
               <tr key={name}>
                 <td className={classes}>
@@ -50,7 +49,7 @@ function PassingStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {`${completions}/${attempts}`}
+                    {receptions}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -59,7 +58,16 @@ function PassingStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {passYards}
+                    {recYds}
+                  </Typography>
+                </td>
+                <td className={classes}>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {recAvg}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -67,15 +75,6 @@ function PassingStatTable({ stats }) {
                     variant="small"
                     color="blue-gray"
                     className="font-medium"
-                  >
-                    {passAvg}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
                   >
                     {td}
                   </Typography>
@@ -84,9 +83,9 @@ function PassingStatTable({ stats }) {
                   <Typography
                     variant="small"
                     color="blue-gray"
-                    className="font-medium"
+                    className="font-normal"
                   >
-                    {int}
+                    {longRec}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -95,16 +94,7 @@ function PassingStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {sacks}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {qbr}
+                    {targets}
                   </Typography>
                 </td>
               </tr>
@@ -117,4 +107,4 @@ function PassingStatTable({ stats }) {
 }
 
 
-export default PassingStatTable;
+export default ReveivingStatTable;

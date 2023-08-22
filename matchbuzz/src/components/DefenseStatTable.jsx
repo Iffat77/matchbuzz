@@ -1,13 +1,12 @@
 import { Card, Typography } from "@material-tailwind/react";
  
-const TABLE_HEAD = ["", "CTA", "YDS", "AVG", "TD", "INT", "SAK", "QBR"];
+const TABLE_HEAD = ["", "TOT", "SOLO", "SACKS", "TFL", "PD", "QB HTS", "TD"];
  
 
-function PassingStatTable({ stats }) {
+function DefenseStatTable({ stats }) {
   return (
     <Card className="h-full w-full overflow-scroll">
-      {console.log(stats)}
-      <p>Away Passing</p>
+      <p>Away Defense</p>
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
@@ -29,10 +28,10 @@ function PassingStatTable({ stats }) {
         </thead>
         <tbody>
           
-          {stats && stats.map(({ name, completions, attempts, int, passAvg, passYards, qbr, sacks, td}, index) => {
+          {stats && stats.map(({ name, totalTackles, soloTackles, tfl, sacks, passDeflections, qbHits, defTD}, index) => {
             const isLast = index === stats.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-            console.log(qbr)
+ 
             return (
               <tr key={name}>
                 <td className={classes}>
@@ -50,7 +49,7 @@ function PassingStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {`${completions}/${attempts}`}
+                    {totalTackles}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -59,7 +58,16 @@ function PassingStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {passYards}
+                    {soloTackles}
+                  </Typography>
+                </td>
+                <td className={classes}>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {tfl}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -67,33 +75,6 @@ function PassingStatTable({ stats }) {
                     variant="small"
                     color="blue-gray"
                     className="font-medium"
-                  >
-                    {passAvg}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {td}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-medium"
-                  >
-                    {int}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
                   >
                     {sacks}
                   </Typography>
@@ -104,7 +85,25 @@ function PassingStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {qbr}
+                    {passDeflections}
+                  </Typography>
+                </td>
+                <td className={classes}>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {qbHits}
+                  </Typography>
+                </td>
+                <td className={classes}>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {defTD}
                   </Typography>
                 </td>
               </tr>
@@ -117,4 +116,4 @@ function PassingStatTable({ stats }) {
 }
 
 
-export default PassingStatTable;
+export default DefenseStatTable;
