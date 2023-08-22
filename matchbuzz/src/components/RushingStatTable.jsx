@@ -6,7 +6,7 @@ const TABLE_HEAD = ["", "CAR", "YDS", "AVG", "TD", "LONG"];
 function RushingStatTable({ stats }) {
   return (
     <Card className="h-full w-full overflow-scroll">
-      <p>Away Rushing</p>
+      <p>Rushing</p>
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>

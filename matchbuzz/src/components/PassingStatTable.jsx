@@ -7,7 +7,7 @@ function PassingStatTable({ stats }) {
   return (
     <Card className="h-full w-full overflow-scroll">
       {console.log(stats)}
-      <p>Away Passing</p>
+      <p>Passing</p>
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>

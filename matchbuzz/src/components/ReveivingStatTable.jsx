@@ -5,8 +5,8 @@ const TABLE_HEAD = ["", "REC", "YDS", "AVG", "TD", "LONG", "TGTS"];
 
 function ReveivingStatTable({ stats }) {
   return (
-    <Card className="h-full w-full overflow-scroll">
-      <p>Away Receiving</p>
+    <Card className="h-full w-full overflow-auto">
+      <p>Receiving</p>
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>

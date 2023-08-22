@@ -1,12 +1,12 @@
 import { Card, Typography } from "@material-tailwind/react";
  
-const TABLE_HEAD = ["", "TOT", "SOLO", "SACKS", "TFL", "PD", "QB HTS", "TD"];
+const TABLE_HEAD = ["", "RET", "YDS", "AVG", "TD", "LONG"];
  
 
-function DefenseStatTable({ stats }) {
+function KickReturnStatTable({ stats }) {
   return (
     <Card className="h-full w-full overflow-scroll">
-      <p>Defense</p>
+      <p>Kick Return</p>
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
@@ -28,7 +28,7 @@ function DefenseStatTable({ stats }) {
         </thead>
         <tbody>
           
-          {stats && stats.map(({ name, totalTackles, soloTackles, tfl, sacks, passDeflections, qbHits, defTD}, index) => {
+          {stats && stats.map(({ name, kickReturns, kickReturnYds, kickReturnAvg, kickReturnTD, kickReturnLong }, index) => {
             const isLast = index === stats.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
  
@@ -49,7 +49,7 @@ function DefenseStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {totalTackles}
+                    {kickReturns}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -58,7 +58,7 @@ function DefenseStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {soloTackles}
+                    {kickReturnYds}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -67,7 +67,7 @@ function DefenseStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {tfl}
+                    {kickReturnAvg}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -76,7 +76,7 @@ function DefenseStatTable({ stats }) {
                     color="blue-gray"
                     className="font-medium"
                   >
-                    {sacks}
+                    {kickReturnTD}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -85,25 +85,7 @@ function DefenseStatTable({ stats }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {passDeflections}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {qbHits}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {defTD}
+                    {kickReturnLong}
                   </Typography>
                 </td>
               </tr>
@@ -116,4 +98,4 @@ function DefenseStatTable({ stats }) {
 }
 
 
-export default DefenseStatTable;
+export default KickReturnStatTable;
